@@ -3,21 +3,21 @@ import { AddNewItem } from "./AddNewItem";
 import Column from "./Column";
 import { useAppState } from "./state/AppStateContext";
 import { AppContainer } from "./styles";
-import { addList } from "./state/actions";
+import { addStage } from "./state/actions";
 import { CustomDragLayer } from "./CustomDragLayer";
 
 function App() {
-  const { lists, dispatch } = useAppState();
+  const { stages, dispatch } = useAppState();
 
   return (
     <AppContainer>
       <CustomDragLayer />
-      {lists.map((list) => (
-        <Column text={list.text} key={list.id} id={list.id} />
+      {stages.map((stage) => (
+        <Column text={stage.text} key={stage.id} id={stage.id} />
       ))}
       {/* <AddNewItem
         toggleButtonText="+ Add another list"
-        onAdd={(text) => dispatch(addList(text))}
+        onAdd={(text) => dispatch(addStage(text))}
       /> */}
     </AppContainer>
   );

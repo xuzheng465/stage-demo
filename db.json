@@ -1,0 +1,108 @@
+{
+  "data": {
+    "draggedItem": null,
+    "stages": [
+      {
+        "id": "0",
+        "text": "1-意向阶段",
+        "leads": [
+          {
+            "id": "c1",
+            "text": "Lead 1",
+            "stage": "0",
+            "content": {
+              "name": "郑旭",
+              "rate": "A",
+              "intend": "BMW",
+              "sale": "Tuo",
+              "price": "10000"
+            }
+          }
+        ]
+      },
+      {
+        "id": "1",
+        "text": "2-沟通阶段",
+        "leads": []
+      },
+      {
+        "id": "2",
+        "text": "3-报价阶段",
+        "leads": [
+          {
+            "id": "c3",
+            "text": "Lead 3",
+            "content": {
+              "name": "曹允龙",
+              "rate": "A",
+              "intend": "BMW",
+              "stage": "2",
+              "sale": "Tuo",
+              "price": "10000"
+            }
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "text": "4-签约阶段",
+        "leads": [
+          {
+            "id": "c2",
+            "text": "Lead 2",
+            "content": {
+              "name": "林于季",
+              "rate": "A",
+              "intend": "BMW",
+              "sale": "Tuo",
+              "stage": "3",
+              "price": "10000"
+            }
+          },
+          {
+            "id": "c4",
+            "text": "Lead 4",
+            "content": {
+              "name": "张志辰",
+              "rate": "A",
+              "intend": "BMW",
+              "sale": "Tuo",
+              "stage": "3",
+              "price": "10000"
+            }
+          },
+          {
+            "id": "c6",
+            "text": "Lead 6",
+            "content": {
+              "name": "陈育月",
+              "rate": "A",
+              "intend": "BMW",
+              "sale": "Tuo",
+              "stage": "3",
+              "price": "10000"
+            }
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "text": "5-交车阶段",
+        "leads": [
+          {
+            "id": "c5",
+            "text": "Lead 5",
+            "content": {
+              "name": "李婉菁",
+              "rate": "A",
+              "intend": "BMW",
+              "sale": "Tuo",
+              "stage": "4",
+              "price": "10000"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

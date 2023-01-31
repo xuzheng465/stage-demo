@@ -3,18 +3,27 @@ import { useAppState } from "./state/AppStateContext";
 import { CardContainer } from "./styles";
 import { isHidden } from "./utils/isHidden";
 import { useItemDrag } from "./utils/useItemDrag";
-import { moveTask, setDraggedItem } from "./state/actions";
+import { moveLead, setDraggedItem } from "./state/actions";
 import { throttle } from "throttle-debounce-ts";
 import { useDrop } from "react-dnd";
+import { Card as CardAnt, Dropdown, MenuProps, message } from "antd";
+import {
+  StockOutlined,
+  ShareAltOutlined,
+  UserOutlined,
+  EllipsisOutlined,
+} from "@ant-design/icons";
+import { LeadContent } from "./state/appStateReducer";
 
 type CardProps = {
   text: string;
   id: string;
   columnId: string;
+  content: LeadContent;
   isPreview?: boolean;
 };
 
-const Card = ({ text, id, columnId, isPreview }: CardProps) => {
+const Card = ({ text, id, columnId, isPreview, content }: CardProps) => {
   const { draggedItem, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -23,6 +32,7 @@ const Card = ({ text, id, columnId, isPreview }: CardProps) => {
     id,
     text,
     columnId,
+    content,
   });
 
   const [, drop] = useDrop({
@@ -35,18 +45,59 @@ const Card = ({ text, id, columnId, isPreview }: CardProps) => {
       if (draggedItem.id === id) {
         return;
       }
-      dispatch(moveTask(draggedItem.id, id, draggedItem.columnId, columnId));
+      dispatch(moveLead(draggedItem.id, id, draggedItem.columnId, columnId));
       dispatch(setDraggedItem({ ...draggedItem, columnId }));
     }),
   });
   drag(drop(ref));
+
+  const items: MenuProps["items"] = [
+    {
+      label: <a href="#客户档案">客户档案</a>,
+      key: "1",
+      icon: <UserOutlined />,
+    },
+    {
+      label: <a href="#任务流">任务流</a>,
+      key: "2",
+      icon: <ShareAltOutlined />,
+    },
+    {
+      label: <a href="#轨迹">轨迹</a>,
+      key: "3",
+      icon: <StockOutlined />,
+    },
+  ];
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    message.info("Click on menu item.");
+    console.log("click", e);
+  };
+
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
+
   return (
     <CardContainer
       isHidden={isHidden(draggedItem, "CARD", id, isPreview)}
       isPreview={isPreview}
       ref={ref}
     >
-      {text}
+      <CardAnt
+        size="small"
+        title={"客户姓名: " + content.name}
+        extra={
+          <Dropdown menu={{ items }} placement="bottom">
+            <EllipsisOutlined />
+          </Dropdown>
+        }
+      >
+        <p>评级: {content.rate}</p>
+        <p>意向车型: {content.intend}</p>
+        <p>所属销售: {content.sale}</p>
+        <p>订单金额: {content.price}</p>
+      </CardAnt>
     </CardContainer>
   );
 };

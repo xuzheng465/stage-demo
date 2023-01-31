@@ -2,12 +2,13 @@ import { CardContainer, ColumnContainer, ColumnTitle } from "./styles";
 import Card from "./Card";
 import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "./state/AppStateContext";
-import { addTask, moveList, moveTask, setDraggedItem } from "./state/actions";
+import { addLead, moveStage, moveLead, setDraggedItem } from "./state/actions";
 import { useRef } from "react";
 import { useItemDrag } from "./utils/useItemDrag";
 import { throttle } from "throttle-debounce-ts";
 import { useDrop } from "react-dnd";
 import { isHidden } from "./utils/isHidden";
+import { LeadContent } from "./state/appStateReducer";
 
 type ColumnProps = {
   text: string;
@@ -16,9 +17,9 @@ type ColumnProps = {
 };
 
 function Column({ text, id, isPreview }: ColumnProps) {
-  const { draggedItem, getTasksByListId, dispatch } = useAppState();
+  const { draggedItem, getLeadsByListId, dispatch } = useAppState();
 
-  const tasks = getTasksByListId(id);
+  const leads = getLeadsByListId(id);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -32,13 +33,13 @@ function Column({ text, id, isPreview }: ColumnProps) {
         if (draggedItem.id === id) {
           return;
         }
-        dispatch(moveList(draggedItem.id, id));
+        dispatch(moveStage(draggedItem.id, id));
       } else {
         if (draggedItem.columnId === id) {
           return;
         }
-        if (tasks.length) return;
-        dispatch(moveTask(draggedItem.id, null, draggedItem.columnId, id));
+        if (leads.length) return;
+        dispatch(moveLead(draggedItem.id, null, draggedItem.columnId, id));
         dispatch(setDraggedItem({ ...draggedItem, columnId: id }));
       }
     }),
@@ -55,12 +56,18 @@ function Column({ text, id, isPreview }: ColumnProps) {
       isHidden={isHidden(draggedItem, "COLUMN", id, isPreview)}
     >
       <ColumnTitle>{text}</ColumnTitle>
-      {tasks.map((task) => (
-        <Card text={task.text} key={task.id} id={task.id} columnId={id} />
+      {leads.map((task) => (
+        <Card
+          text={task.text}
+          key={task.id}
+          id={task.id}
+          columnId={id}
+          content={task.content}
+        />
       ))}
       <AddNewItem
         toggleButtonText="+ Add another lead"
-        onAdd={(text) => dispatch(addTask(text, id))}
+        onAdd={(text) => dispatch(addLead(text, id))}
         dark
       />
     </ColumnContainer>

@@ -1,17 +1,24 @@
 import { useState } from "react";
-import { NewItemFormContainer, NewItemButton, NewItemInput } from "./styles";
+import {
+  NewItemFormContainer,
+  NewItemButton,
+  NewItemInput,
+  CancelButton,
+} from "./styles";
 import { useFocus } from "./utils/useFocus";
 
 type NewItemFormProps = {
   onAdd(text: string): void;
+  closeForm(): void;
 };
 
-export const NewItemForm = ({ onAdd }: NewItemFormProps) => {
+export const NewItemForm = ({ onAdd, closeForm }: NewItemFormProps) => {
   const [text, setText] = useState("");
   const inputRef = useFocus();
 
   const handleAddText = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
+      if (text === "") return;
       onAdd(text);
     }
   };
@@ -25,7 +32,14 @@ export const NewItemForm = ({ onAdd }: NewItemFormProps) => {
         onKeyDown={handleAddText}
       />
 
-      <NewItemButton onClick={() => onAdd(text)}>Create</NewItemButton>
+      <NewItemButton
+        onClick={() => {
+          if (text !== "") onAdd(text);
+        }}
+      >
+        Create
+      </NewItemButton>
+      <CancelButton onClick={() => closeForm()}>Cancel</CancelButton>
     </NewItemFormContainer>
   );
 };

@@ -5,7 +5,7 @@ export const AppContainer = styled.div`
   background-color: #3179ba;
   display: flex;
   flex-direction: row;
-  height: 100%;
+  min-height: 100%;
   padding: 20px;
   width: 100%;
 `;
@@ -73,6 +73,16 @@ export const NewItemButton = styled.button`
   text-align: center;
 `;
 
+export const CancelButton = styled.button`
+  background-color: #f5425d;
+  border-radius: 3px;
+  border: none;
+  box-shadow: none;
+  color: #fff;
+  padding: 6px 12px;
+  text-align: center;
+`;
+
 export const NewItemInput = styled.input`
   border-radius: 3px;
   border: none;
@@ -94,7 +104,7 @@ export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
 
 export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #ebecf0;
-  width: 300px;
+  width: 350px;
   min-height: 40px;
   margin-right: 20px;
   border-radius: 3px;
@@ -106,9 +116,9 @@ export const CardContainer = styled(DragPreviewContainer)`
   background-color: #fff;
   cursor: pointer;
   margin-bottom: 0.5rem;
-  padding: 0.5rem 1rem;
-  max-width: 300px;
-  border-radius: 3px;
+  // padding: 0.5rem 1rem;
+  max-width: 350px;
+  border-radius: 10px;
   box-shadow: #091e4240 0px 1px 0px 0px;
 `;
 

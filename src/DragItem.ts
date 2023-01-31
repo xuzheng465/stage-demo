@@ -1,3 +1,5 @@
+import { LeadContent } from "./state/appStateReducer";
+
 export type ColumnDragItem = {
   id: string;
   text: string;
@@ -8,6 +10,7 @@ export type CardDragItem = {
   id: string;
   columnId: string;
   text: string;
+  content: LeadContent;
   type: "CARD";
 };
 

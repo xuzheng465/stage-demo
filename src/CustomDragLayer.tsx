@@ -22,6 +22,7 @@ export const CustomDragLayer = () => {
             isPreview
             id={draggedItem.id}
             text={draggedItem.text}
+            content={draggedItem.content}
           />
         )}
       </DragPreviewWrapper>

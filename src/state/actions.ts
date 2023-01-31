@@ -2,15 +2,15 @@ import { DragItem } from "../DragItem";
 
 export type Action =
   | {
-      type: "ADD_LIST";
+      type: "ADD_STAGE";
       payload: string;
     }
   | {
-      type: "ADD_TASK";
+      type: "ADD_LEAD";
       payload: { text: string; listId: string };
     }
   | {
-      type: "MOVE_LIST";
+      type: "MOVE_STAGE";
       payload: {
         draggedId: string;
         hoverId: string;
@@ -21,7 +21,7 @@ export type Action =
       payload: DragItem | null;
     }
   | {
-      type: "MOVE_TASK";
+      type: "MOVE_LEAD";
       payload: {
         draggedItemId: string;
         hoveredItemId: string | null;
@@ -30,21 +30,21 @@ export type Action =
       };
     };
 
-export const addTask = (text: string, listId: string): Action => ({
-  type: "ADD_TASK",
+export const addLead = (text: string, listId: string): Action => ({
+  type: "ADD_LEAD",
   payload: {
     text,
     listId,
   },
 });
 
-export const addList = (text: string): Action => ({
-  type: "ADD_LIST",
+export const addStage = (text: string): Action => ({
+  type: "ADD_STAGE",
   payload: text,
 });
 
-export const moveList = (draggedId: string, hoverId: string): Action => ({
-  type: "MOVE_LIST",
+export const moveStage = (draggedId: string, hoverId: string): Action => ({
+  type: "MOVE_STAGE",
   payload: {
     draggedId,
     hoverId,
@@ -56,13 +56,13 @@ export const setDraggedItem = (draggedItem: DragItem | null): Action => ({
   payload: draggedItem,
 });
 
-export const moveTask = (
+export const moveLead = (
   draggedItemId: string,
   hoveredItemId: string | null,
   sourceColumnId: string,
   targetColumnId: string
 ): Action => ({
-  type: "MOVE_TASK",
+  type: "MOVE_LEAD",
   payload: {
     draggedItemId,
     hoveredItemId,

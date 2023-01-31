@@ -5,17 +5,24 @@ import App from "./App";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend as Backend } from "react-dnd-html5-backend";
 import { AppStateProvider } from "./state/AppStateContext";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
+
+
 root.render(
   <React.StrictMode>
     <DndProvider backend={Backend}>
-      <AppStateProvider>
-        <App />
-      </AppStateProvider>
+      <QueryClientProvider client={queryClient}>
+        <AppStateProvider>
+          <App />
+        </AppStateProvider>
+      </QueryClientProvider>
     </DndProvider>
   </React.StrictMode>
 );

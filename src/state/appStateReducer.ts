@@ -9,7 +9,7 @@ export type LeadContent = {
   intend: string;
   sale: string;
   price: string;
-  stage: string;
+  stage: string | null;
 };
 
 export type Lead = {
@@ -27,6 +27,7 @@ export type Stage = {
 export type AppState = {
   stages: Stage[];
   draggedItem: DragItem | null;
+  curColId: string | null;
 };
 
 export const appStateReducer = (
@@ -43,13 +44,13 @@ export const appStateReducer = (
       break;
     }
     case "ADD_LEAD": {
-      const { text, listId } = action.payload;
-      const targetListIndex = findItemIndexById(draft.stages, listId);
+      const { lead, stageId } = action.payload;
+      const targetListIndex = findItemIndexById(draft.stages, stageId);
 
       draft.stages[targetListIndex].leads.push({
         id: nanoid(),
-        text,
-        content: {} as LeadContent,
+        text: "a lead",
+        content: lead,
       });
       break;
     }
@@ -63,6 +64,11 @@ export const appStateReducer = (
 
     case "SET_DRAGGED_ITEM": {
       draft.draggedItem = action.payload;
+      break;
+    }
+
+    case "SET_COL_ID": {
+      draft.curColId = action.payload.columnId;
       break;
     }
 

@@ -1,4 +1,4 @@
-import { CardContainer, ColumnContainer, ColumnTitle } from "./styles";
+import { ColumnContainer, ColumnTitle } from "./styles";
 import Card from "./Card";
 import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "./state/AppStateContext";
@@ -8,15 +8,15 @@ import { useItemDrag } from "./utils/useItemDrag";
 import { throttle } from "throttle-debounce-ts";
 import { useDrop } from "react-dnd";
 import { isHidden } from "./utils/isHidden";
-import { LeadContent } from "./state/appStateReducer";
 
 type ColumnProps = {
   text: string;
   id: string;
   isPreview?: boolean;
+  showAddLeadModal: () => void;
 };
 
-function Column({ text, id, isPreview }: ColumnProps) {
+function Column({ text, id, isPreview, showAddLeadModal }: ColumnProps) {
   const { draggedItem, getLeadsByListId, dispatch } = useAppState();
 
   const leads = getLeadsByListId(id);
@@ -56,18 +56,20 @@ function Column({ text, id, isPreview }: ColumnProps) {
       isHidden={isHidden(draggedItem, "COLUMN", id, isPreview)}
     >
       <ColumnTitle>{text}</ColumnTitle>
-      {leads.map((task) => (
+      {leads.map((lead) => (
         <Card
-          text={task.text}
-          key={task.id}
-          id={task.id}
+          text={lead.text}
+          key={lead.id}
+          id={lead.id}
           columnId={id}
-          content={task.content}
+          content={lead.content}
         />
       ))}
       <AddNewItem
-        toggleButtonText="+ Add another lead"
-        onAdd={(text) => dispatch(addLead(text, id))}
+        toggleButtonText="+ Add New Lead"
+        //onAdd={(text) => dispatch(addLead(text, id))}
+        showModal={showAddLeadModal}
+        curColumnId={id}
         dark
       />
     </ColumnContainer>

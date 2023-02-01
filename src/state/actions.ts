@@ -1,4 +1,5 @@
 import { DragItem } from "../DragItem";
+import { LeadContent } from "./appStateReducer";
 
 export type Action =
   | {
@@ -7,7 +8,7 @@ export type Action =
     }
   | {
       type: "ADD_LEAD";
-      payload: { text: string; listId: string };
+      payload: { lead: LeadContent; stageId: string | null };
     }
   | {
       type: "MOVE_STAGE";
@@ -28,13 +29,26 @@ export type Action =
         sourceColumnId: string;
         targetColumnId: string;
       };
+    }
+  | {
+      type: "SET_COL_ID";
+      payload: {
+        columnId: string;
+      };
     };
 
-export const addLead = (text: string, listId: string): Action => ({
+export const addLead = (lead: LeadContent, stageId: string | null): Action => ({
   type: "ADD_LEAD",
   payload: {
-    text,
-    listId,
+    lead,
+    stageId,
+  },
+});
+
+export const setCurrentColId = (columnId: string): Action => ({
+  type: "SET_COL_ID",
+  payload: {
+    columnId,
   },
 });
 

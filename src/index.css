@@ -32,3 +32,10 @@ p {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+/* .ant-form-item-required span {
+  display: none;
+}
+
+.ant-form-item-required:after {
+  display: none;
+} */

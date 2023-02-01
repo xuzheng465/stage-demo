@@ -18,6 +18,7 @@ export function withInitialState<TProps>(
       stages: [],
       draggedItem: null,
       curColId: null,
+      curLeadId: null,
     });
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<Error | undefined>();

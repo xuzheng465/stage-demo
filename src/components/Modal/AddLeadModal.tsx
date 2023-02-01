@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAppState } from "../../state/AppStateContext";
 import LeadForm from "../LeadForm";
 
@@ -10,7 +10,17 @@ type AddLeadModalProps = {
 
 function AddLeadModal({ isModalOpen, onClose }: AddLeadModalProps) {
   const { curColId } = useAppState();
-  console.log(curColId);
+
+  const [reset, setReset] = useState<() => void>();
+
+  // useEffect(() => {
+  //   if (typeof reset !== "undefined") {
+  //     reset();
+  //   }
+  //   console.log("check");
+  // }, [curColId, reset]);
+
+  console.log("Add Lead Modal ", curColId);
   return (
     <>
       <Modal
@@ -20,7 +30,7 @@ function AddLeadModal({ isModalOpen, onClose }: AddLeadModalProps) {
         onCancel={onClose}
         footer={[]}
       >
-        <LeadForm onClose={onClose} currentColumnId={curColId} />
+        <LeadForm isEdit={false} onClose={onClose} currentColumnId={curColId} />
       </Modal>
     </>
   );

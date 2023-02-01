@@ -14,9 +14,16 @@ type ColumnProps = {
   id: string;
   isPreview?: boolean;
   showAddLeadModal: () => void;
+  showEditLeadModal: () => void;
 };
 
-function Column({ text, id, isPreview, showAddLeadModal }: ColumnProps) {
+function Column({
+  text,
+  id,
+  isPreview,
+  showEditLeadModal,
+  showAddLeadModal,
+}: ColumnProps) {
   const { draggedItem, getLeadsByListId, dispatch } = useAppState();
 
   const leads = getLeadsByListId(id);
@@ -63,6 +70,7 @@ function Column({ text, id, isPreview, showAddLeadModal }: ColumnProps) {
           id={lead.id}
           columnId={id}
           content={lead.content}
+          showEditLeadModal={showEditLeadModal}
         />
       ))}
       <AddNewItem

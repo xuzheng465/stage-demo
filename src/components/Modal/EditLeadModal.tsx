@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAppState } from "../../state/AppStateContext";
 import { Lead, LeadContent } from "../../state/appStateReducer";
 import LeadForm from "../LeadForm";
@@ -10,27 +10,32 @@ type EditLeadModalProps = {
 };
 
 function EditLeadModal({ isModalOpen, onClose }: EditLeadModalProps) {
-  const { curColId, getLeadsByListId } = useAppState();
-  const leads = getLeadsByListId(curColId!);
+  const { curColId, getLeadsByListId, curLeadId } = useAppState();
 
-  console.log(curColId);
+  const leads = getLeadsByListId(curColId!);
+  const lead = leads.filter((l) => l.id === curLeadId)[0];
+
+  // useEffect(() => {
+  //   return () => {};
+  // }, [curLeadId]);
+
   return (
     <>
       <Modal
-        title="Add New Lead"
+        title="Edit New Lead"
         open={isModalOpen}
         onOk={onClose}
         onCancel={onClose}
         footer={[]}
       >
         <LeadForm
-          // clientName={lead.content.name}
-          // rate={lead.content.rate}
-          // intend={lead.content.intend}
-          // price={lead.content.price}
+          clientName={lead?.content.name}
+          rate={lead?.content.rate}
+          intend={lead?.content.intend}
+          price={lead?.content.price}
           onClose={onClose}
           currentColumnId={curColId}
-          // isEdit={true}
+          isEdit={true}
         />
       </Modal>
     </>

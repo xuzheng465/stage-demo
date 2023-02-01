@@ -28,6 +28,7 @@ export type AppState = {
   stages: Stage[];
   draggedItem: DragItem | null;
   curColId: string | null;
+  curLeadId: string | null;
 };
 
 export const appStateReducer = (
@@ -69,6 +70,11 @@ export const appStateReducer = (
 
     case "SET_COL_ID": {
       draft.curColId = action.payload.columnId;
+      break;
+    }
+
+    case "SET_LEAD_ID": {
+      draft.curLeadId = action.payload.leadId;
       break;
     }
 

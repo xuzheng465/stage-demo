@@ -33,13 +33,17 @@ function App() {
   return (
     <>
       <AppContainer>
-        <CustomDragLayer showAddLeadModal={showAddLeadModal} />
+        <CustomDragLayer
+          showAddLeadModal={showAddLeadModal}
+          showEditLeadModal={showEditLeadModal}
+        />
         {stages.map((stage) => (
           <Column
             text={stage.text}
             key={stage.id}
             id={stage.id}
             showAddLeadModal={showAddLeadModal}
+            showEditLeadModal={showEditLeadModal}
           />
         ))}
         {/* <AddNewItem

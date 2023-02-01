@@ -13,6 +13,7 @@ type AppStateContextProps = {
   getLeadsByListId(id: string): Lead[];
   dispatch: Dispatch<Action>;
   curColId: string | null;
+  curLeadId: string | null;
 };
 
 const AppStateContext = createContext<AppStateContextProps>(
@@ -32,14 +33,21 @@ export const AppStateProvider = withInitialState<AppStateProviderProps>(
       save(state);
     }, [state]);
 
-    const { draggedItem, stages, curColId } = state;
+    const { draggedItem, stages, curColId, curLeadId } = state;
     const getLeadsByListId = (id: string) => {
       return stages.find((stage) => stage.id === id)?.leads || [];
     };
 
     return (
       <AppStateContext.Provider
-        value={{ draggedItem, stages, getLeadsByListId, dispatch, curColId }}
+        value={{
+          draggedItem,
+          stages,
+          getLeadsByListId,
+          dispatch,
+          curColId,
+          curLeadId,
+        }}
       >
         {children}
       </AppStateContext.Provider>

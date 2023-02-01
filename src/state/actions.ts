@@ -18,6 +18,12 @@ export type Action =
       };
     }
   | {
+      type: "SET_LEAD_ID";
+      payload: {
+        leadId: string;
+      };
+    }
+  | {
       type: "SET_DRAGGED_ITEM";
       payload: DragItem | null;
     }
@@ -35,6 +41,9 @@ export type Action =
       payload: {
         columnId: string;
       };
+    }
+  | {
+      type: "UPADATE_LEAD";
     };
 
 export const addLead = (lead: LeadContent, stageId: string | null): Action => ({
@@ -49,6 +58,13 @@ export const setCurrentColId = (columnId: string): Action => ({
   type: "SET_COL_ID",
   payload: {
     columnId,
+  },
+});
+
+export const setCurrentLeadId = (leadId: string): Action => ({
+  type: "SET_LEAD_ID",
+  payload: {
+    leadId,
   },
 });
 

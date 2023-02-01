@@ -3,7 +3,12 @@ import { useAppState } from "./state/AppStateContext";
 import { CardContainer } from "./styles";
 import { isHidden } from "./utils/isHidden";
 import { useItemDrag } from "./utils/useItemDrag";
-import { moveLead, setDraggedItem } from "./state/actions";
+import {
+  moveLead,
+  setCurrentColId,
+  setCurrentLeadId,
+  setDraggedItem,
+} from "./state/actions";
 import { throttle } from "throttle-debounce-ts";
 import { useDrop } from "react-dnd";
 import { Card as CardAnt, Dropdown, MenuProps, message } from "antd";
@@ -21,9 +26,17 @@ type CardProps = {
   columnId: string;
   content: LeadContent;
   isPreview?: boolean;
+  showEditLeadModal: () => void;
 };
 
-const Card = ({ text, id, columnId, isPreview, content }: CardProps) => {
+const Card = ({
+  text,
+  id,
+  columnId,
+  isPreview,
+  content,
+  showEditLeadModal,
+}: CardProps) => {
   const { draggedItem, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -83,6 +96,11 @@ const Card = ({ text, id, columnId, isPreview, content }: CardProps) => {
       isHidden={isHidden(draggedItem, "CARD", id, isPreview)}
       isPreview={isPreview}
       ref={ref}
+      onClick={() => {
+        dispatch(setCurrentLeadId(id));
+        dispatch(setCurrentColId(columnId));
+        showEditLeadModal();
+      }}
     >
       <CardAnt
         size="small"

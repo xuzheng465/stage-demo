@@ -6,7 +6,8 @@ import { LeadContent } from "../state/appStateReducer";
 type LeadFormProps = {
   onClose: () => void;
   currentColumnId: string | null;
-};
+  isEdit: boolean;
+} & Partial<LeadFormValue>;
 
 type LeadFormValue = {
   clientName: string;
@@ -15,9 +16,18 @@ type LeadFormValue = {
   price: string;
 };
 
-function LeadForm({ onClose, currentColumnId }: LeadFormProps) {
+function LeadForm({
+  onClose,
+  isEdit,
+  currentColumnId,
+  clientName = "",
+  rate = "",
+  intend = "",
+  price = "",
+}: LeadFormProps) {
   const { dispatch } = useAppState();
   const [form] = Form.useForm();
+
   const onFinish = (values: LeadFormValue) => {
     console.log("Success:", values);
 
@@ -29,8 +39,13 @@ function LeadForm({ onClose, currentColumnId }: LeadFormProps) {
       stage: currentColumnId,
       price: values.price,
     };
+    if (isEdit) {
+      // dispatch edit
+      
+    } else {
+      dispatch(addLead(newLead, currentColumnId));
+    }
 
-    dispatch(addLead(newLead, currentColumnId));
     form.resetFields();
     onClose();
   };
@@ -43,7 +58,7 @@ function LeadForm({ onClose, currentColumnId }: LeadFormProps) {
         wrapperCol={{ span: 14 }}
         layout="horizontal"
         style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
+        initialValues={{ clientName, rate, intend, price }}
         onFinish={onFinish}
         onFinishFailed={() => {}}
         autoComplete="off"

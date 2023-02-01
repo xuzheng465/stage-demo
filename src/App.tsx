@@ -6,10 +6,13 @@ import { AppContainer } from "./styles";
 
 import { CustomDragLayer } from "./CustomDragLayer";
 import AddLeadModal from "./components/Modal/AddLeadModal";
+import EditLeadModal from "./components/Modal/EditLeadModal";
+import { ConfigContext } from "antd/es/config-provider";
 
 function App() {
   const { stages } = useAppState();
   const [isAddLeadModalOpen, setIsAddLeadModalOpen] = useState(false);
+  const [isEditLeadModalOpen, setIsEditLeadModalOpen] = useState(false);
 
   const showAddLeadModal = () => {
     setIsAddLeadModalOpen(true);
@@ -17,6 +20,14 @@ function App() {
 
   const handleCloseModal = () => {
     setIsAddLeadModalOpen(false);
+  };
+
+  const showEditLeadModal = () => {
+    setIsEditLeadModalOpen(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setIsEditLeadModalOpen(false);
   };
 
   return (
@@ -39,6 +50,11 @@ function App() {
       <AddLeadModal
         isModalOpen={isAddLeadModalOpen}
         onClose={handleCloseModal}
+      />
+
+      <EditLeadModal
+        isModalOpen={isEditLeadModalOpen}
+        onClose={handleCloseEditModal}
       />
     </>
   );

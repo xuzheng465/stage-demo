@@ -31,7 +31,7 @@ function LeadForm({
 
   useEffect(() => {
     form.resetFields();
-  }, [clientName, curLeadId, form]);
+  }, [clientName, rate, intend, price, curLeadId, form]);
 
   const onFinish = (values: LeadFormValue) => {
     const newLead: LeadContent = {

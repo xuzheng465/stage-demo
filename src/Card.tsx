@@ -82,7 +82,15 @@ const Card = ({
       icon: <StockOutlined />,
     },
     {
-      label: <div>删除</div>,
+      label: (
+        <div
+          onClick={() => {
+            alert("删除");
+          }}
+        >
+          删除
+        </div>
+      ),
       key: "4",
       icon: <WarningOutlined />,
     },
@@ -102,11 +110,6 @@ const Card = ({
       isHidden={isHidden(draggedItem, "CARD", id, isPreview)}
       isPreview={isPreview}
       ref={ref}
-      onClick={() => {
-        dispatch(setCurrentLeadId(id));
-        dispatch(setCurrentColId(columnId));
-        showEditLeadModal();
-      }}
     >
       <CardAnt
         size="small"
@@ -117,10 +120,18 @@ const Card = ({
           </Dropdown>
         }
       >
-        <p>评级: {content.rate}</p>
-        <p>意向车型: {content.intend}</p>
-        <p>所属销售: {content.sale}</p>
-        <p>订单金额: {content.price}</p>
+        <div
+          onClick={() => {
+            dispatch(setCurrentLeadId(id));
+            dispatch(setCurrentColId(columnId));
+            showEditLeadModal();
+          }}
+        >
+          <p>评级: {content.rate}</p>
+          <p>意向车型: {content.intend}</p>
+          <p>所属销售: {content.sale}</p>
+          <p>订单金额: {content.price}</p>
+        </div>
       </CardAnt>
     </CardContainer>
   );

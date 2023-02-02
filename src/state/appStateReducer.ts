@@ -77,7 +77,17 @@ export const appStateReducer = (
       draft.curLeadId = action.payload.leadId;
       break;
     }
+    case "UPADATE_LEAD": {
+      const { lead, columnId, leadId } = action.payload;
+      const colIndex = findItemIndexById(draft.stages, columnId);
+      const leadIndex = findItemIndexById(draft.stages[colIndex].leads, leadId);
 
+      const oldItem = draft.stages[colIndex].leads[leadIndex];
+      const newItem = { ...oldItem, content: lead };
+      draft.stages[colIndex].leads[leadIndex] = newItem;
+      break;
+    }
+    
     case "MOVE_LEAD": {
       const { draggedItemId, hoveredItemId, sourceColumnId, targetColumnId } =
         action.payload;

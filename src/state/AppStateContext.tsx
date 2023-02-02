@@ -14,6 +14,7 @@ type AppStateContextProps = {
   dispatch: Dispatch<Action>;
   curColId: string | null;
   curLeadId: string | null;
+  curLead: Lead | null;
 };
 
 const AppStateContext = createContext<AppStateContextProps>(
@@ -37,6 +38,8 @@ export const AppStateProvider = withInitialState<AppStateProviderProps>(
     const getLeadsByListId = (id: string) => {
       return stages.find((stage) => stage.id === id)?.leads || [];
     };
+    const leads = getLeadsByListId(curColId!);
+    const lead = leads.filter((l) => l.id === curLeadId)[0] as Lead | null;
 
     return (
       <AppStateContext.Provider
@@ -47,6 +50,7 @@ export const AppStateProvider = withInitialState<AppStateProviderProps>(
           dispatch,
           curColId,
           curLeadId,
+          curLead: lead,
         }}
       >
         {children}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Column from "./Column";
 import { useAppState } from "./state/AppStateContext";
@@ -10,7 +10,7 @@ import EditLeadModal from "./components/Modal/EditLeadModal";
 import { ConfigContext } from "antd/es/config-provider";
 
 function App() {
-  const { stages } = useAppState();
+  const { stages, curLeadId } = useAppState();
   const [isAddLeadModalOpen, setIsAddLeadModalOpen] = useState(false);
   const [isEditLeadModalOpen, setIsEditLeadModalOpen] = useState(false);
 

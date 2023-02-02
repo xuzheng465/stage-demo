@@ -17,6 +17,7 @@ import {
   ShareAltOutlined,
   UserOutlined,
   EllipsisOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
 import { LeadContent } from "./state/appStateReducer";
 
@@ -79,6 +80,11 @@ const Card = ({
       label: <a href="#轨迹">轨迹</a>,
       key: "3",
       icon: <StockOutlined />,
+    },
+    {
+      label: <div>删除</div>,
+      key: "4",
+      icon: <WarningOutlined />,
     },
   ];
   const handleMenuClick: MenuProps["onClick"] = (e) => {

@@ -44,6 +44,11 @@ export type Action =
     }
   | {
       type: "UPADATE_LEAD";
+      payload: {
+        lead: LeadContent;
+        columnId: string;
+        leadId: string;
+      };
     };
 
 export const addLead = (lead: LeadContent, stageId: string | null): Action => ({
@@ -51,6 +56,19 @@ export const addLead = (lead: LeadContent, stageId: string | null): Action => ({
   payload: {
     lead,
     stageId,
+  },
+});
+
+export const updateLead = (
+  lead: LeadContent,
+  columnId: string,
+  leadId: string
+): Action => ({
+  type: "UPADATE_LEAD",
+  payload: {
+    lead,
+    columnId,
+    leadId,
   },
 });
 

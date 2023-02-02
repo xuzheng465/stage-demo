@@ -9,7 +9,7 @@ type AddLeadModalProps = {
 };
 
 function AddLeadModal({ isModalOpen, onClose }: AddLeadModalProps) {
-  const { curColId } = useAppState();
+  const { curColId, curLeadId } = useAppState();
 
   const [reset, setReset] = useState<() => void>();
 
@@ -20,7 +20,8 @@ function AddLeadModal({ isModalOpen, onClose }: AddLeadModalProps) {
   //   console.log("check");
   // }, [curColId, reset]);
 
-  console.log("Add Lead Modal ", curColId);
+  console.log("Add Lead Modal current stage id", curColId);
+  console.log("Add Lead Modal current lead id", curLeadId);
   return (
     <>
       <Modal

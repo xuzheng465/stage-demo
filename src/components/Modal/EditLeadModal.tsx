@@ -10,15 +10,9 @@ type EditLeadModalProps = {
 };
 
 function EditLeadModal({ isModalOpen, onClose }: EditLeadModalProps) {
-  const { curColId, getLeadsByListId, curLeadId } = useAppState();
-
-  const leads = getLeadsByListId(curColId!);
-  const lead = leads.filter((l) => l.id === curLeadId)[0];
-
-  // useEffect(() => {
-  //   return () => {};
-  // }, [curLeadId]);
-
+  const { curColId, getLeadsByListId, curLeadId, curLead } = useAppState();
+  // const [lead, setLead] = useState<Lead>();
+  console.log("edit - ", curLead);
   return (
     <>
       <Modal
@@ -29,10 +23,10 @@ function EditLeadModal({ isModalOpen, onClose }: EditLeadModalProps) {
         footer={[]}
       >
         <LeadForm
-          clientName={lead?.content.name}
-          rate={lead?.content.rate}
-          intend={lead?.content.intend}
-          price={lead?.content.price}
+          clientName={curLead?.content.name}
+          rate={curLead?.content.rate}
+          intend={curLead?.content.intend}
+          price={curLead?.content.price}
           onClose={onClose}
           currentColumnId={curColId}
           isEdit={true}

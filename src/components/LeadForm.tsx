@@ -1,5 +1,6 @@
 import { Button, Form, Input, Select } from "antd";
-import { addLead } from "../state/actions";
+import { useEffect, useState } from "react";
+import { addLead, updateLead } from "../state/actions";
 import { useAppState } from "../state/AppStateContext";
 import { LeadContent } from "../state/appStateReducer";
 
@@ -25,8 +26,13 @@ function LeadForm({
   intend = "",
   price = "",
 }: LeadFormProps) {
-  const { dispatch } = useAppState();
+  const { dispatch, curColId, curLeadId } = useAppState();
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.resetFields();
+    console.log("rendering Lead For\n client name", clientName);
+  }, [clientName, curLeadId]);
 
   const onFinish = (values: LeadFormValue) => {
     console.log("Success:", values);
@@ -39,9 +45,10 @@ function LeadForm({
       stage: currentColumnId,
       price: values.price,
     };
+
     if (isEdit) {
       // dispatch edit
-      
+      dispatch(updateLead(newLead, curColId!, curLeadId!));
     } else {
       dispatch(addLead(newLead, currentColumnId));
     }

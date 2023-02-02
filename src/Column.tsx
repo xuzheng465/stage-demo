@@ -2,7 +2,7 @@ import { ColumnContainer, ColumnTitle } from "./styles";
 import Card from "./Card";
 import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "./state/AppStateContext";
-import { addLead, moveStage, moveLead, setDraggedItem } from "./state/actions";
+import { moveStage, moveLead, setDraggedItem } from "./state/actions";
 import { useRef } from "react";
 import { useItemDrag } from "./utils/useItemDrag";
 import { throttle } from "throttle-debounce-ts";
@@ -15,6 +15,7 @@ type ColumnProps = {
   isPreview?: boolean;
   showAddLeadModal: () => void;
   showEditLeadModal: () => void;
+  showDeleteLeadModal: () => void;
 };
 
 function Column({
@@ -23,6 +24,7 @@ function Column({
   isPreview,
   showEditLeadModal,
   showAddLeadModal,
+  showDeleteLeadModal,
 }: ColumnProps) {
   const { draggedItem, getLeadsByListId, dispatch } = useAppState();
 
@@ -71,6 +73,7 @@ function Column({
           columnId={id}
           content={lead.content}
           showEditLeadModal={showEditLeadModal}
+          showDeleteLeadModal={showDeleteLeadModal}
         />
       ))}
       <AddNewItem

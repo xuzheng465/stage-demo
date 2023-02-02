@@ -49,12 +49,30 @@ export type Action =
         columnId: string;
         leadId: string;
       };
+    }
+  | {
+      type: "DELETE_LEAD";
+      payload: {
+        leadId: string | null;
+        stageId: string | null;
+      };
     };
 
 export const addLead = (lead: LeadContent, stageId: string | null): Action => ({
   type: "ADD_LEAD",
   payload: {
     lead,
+    stageId,
+  },
+});
+
+export const deleteLead = (
+  leadId: string | null,
+  stageId: string | null
+): Action => ({
+  type: "DELETE_LEAD",
+  payload: {
+    leadId,
     stageId,
   },
 });

@@ -11,7 +11,7 @@ import {
 } from "./state/actions";
 import { throttle } from "throttle-debounce-ts";
 import { useDrop } from "react-dnd";
-import { Card as CardAnt, Dropdown, MenuProps, message } from "antd";
+import { Card as CardAnt, Dropdown, MenuProps } from "antd";
 import {
   StockOutlined,
   ShareAltOutlined,
@@ -28,6 +28,7 @@ type CardProps = {
   content: LeadContent;
   isPreview?: boolean;
   showEditLeadModal: () => void;
+  showDeleteLeadModal: () => void;
 };
 
 const Card = ({
@@ -37,6 +38,7 @@ const Card = ({
   isPreview,
   content,
   showEditLeadModal,
+  showDeleteLeadModal,
 }: CardProps) => {
   const { draggedItem, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
@@ -67,17 +69,41 @@ const Card = ({
 
   const items: MenuProps["items"] = [
     {
-      label: <a href="#客户档案">客户档案</a>,
+      label: (
+        <div
+          onClick={() => {
+            alert("客户档案");
+          }}
+        >
+          客户档案
+        </div>
+      ),
       key: "1",
       icon: <UserOutlined />,
     },
     {
-      label: <a href="#任务流">任务流</a>,
+      label: (
+        <div
+          onClick={() => {
+            alert("任务流");
+          }}
+        >
+          任务流
+        </div>
+      ),
       key: "2",
       icon: <ShareAltOutlined />,
     },
     {
-      label: <a href="#轨迹">轨迹</a>,
+      label: (
+        <div
+          onClick={() => {
+            alert("轨迹");
+          }}
+        >
+          轨迹
+        </div>
+      ),
       key: "3",
       icon: <StockOutlined />,
     },
@@ -85,7 +111,10 @@ const Card = ({
       label: (
         <div
           onClick={() => {
-            alert("删除");
+            dispatch(setCurrentLeadId(id));
+            dispatch(setCurrentColId(columnId));
+            // dispatch(deleteLead(id, columnId));
+            showDeleteLeadModal();
           }}
         >
           删除
@@ -95,15 +124,6 @@ const Card = ({
       icon: <WarningOutlined />,
     },
   ];
-  const handleMenuClick: MenuProps["onClick"] = (e) => {
-    message.info("Click on menu item.");
-    console.log("click", e);
-  };
-
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
-  };
 
   return (
     <CardContainer

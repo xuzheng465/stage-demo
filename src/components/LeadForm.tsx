@@ -1,12 +1,12 @@
 import { Button, Form, Input, Select } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { addLead, updateLead } from "../state/actions";
 import { useAppState } from "../state/AppStateContext";
 import { LeadContent } from "../state/appStateReducer";
 
 type LeadFormProps = {
   onClose: () => void;
-  currentColumnId: string | null;
+
   isEdit: boolean;
 } & Partial<LeadFormValue>;
 
@@ -20,7 +20,7 @@ type LeadFormValue = {
 function LeadForm({
   onClose,
   isEdit,
-  currentColumnId,
+
   clientName = "",
   rate = "",
   intend = "",
@@ -31,18 +31,15 @@ function LeadForm({
 
   useEffect(() => {
     form.resetFields();
-    console.log("rendering Lead For\n client name", clientName);
-  }, [clientName, curLeadId]);
+  }, [clientName, curLeadId, form]);
 
   const onFinish = (values: LeadFormValue) => {
-    console.log("Success:", values);
-
     const newLead: LeadContent = {
       name: values.clientName,
       rate: values.rate,
       intend: values.intend,
       sale: "Tuo",
-      stage: currentColumnId,
+      stage: curColId,
       price: values.price,
     };
 
@@ -50,7 +47,7 @@ function LeadForm({
       // dispatch edit
       dispatch(updateLead(newLead, curColId!, curLeadId!));
     } else {
-      dispatch(addLead(newLead, currentColumnId));
+      dispatch(addLead(newLead, curColId));
     }
 
     form.resetFields();

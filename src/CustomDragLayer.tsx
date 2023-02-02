@@ -7,11 +7,13 @@ import Card from "./Card";
 type CustomDragLayerProps = {
   showAddLeadModal: () => void;
   showEditLeadModal: () => void;
+  showDeleteLeadModal: () => void;
 };
 
 export const CustomDragLayer = ({
   showAddLeadModal,
   showEditLeadModal,
+  showDeleteLeadModal,
 }: CustomDragLayerProps) => {
   const { draggedItem } = useAppState();
   // currentOffset contains the xy and y coordinates of the dragged item
@@ -29,6 +31,7 @@ export const CustomDragLayer = ({
             isPreview
             showAddLeadModal={showAddLeadModal}
             showEditLeadModal={showEditLeadModal}
+            showDeleteLeadModal={showDeleteLeadModal}
           />
         ) : (
           <Card
@@ -38,6 +41,7 @@ export const CustomDragLayer = ({
             text={draggedItem.text}
             content={draggedItem.content}
             showEditLeadModal={showEditLeadModal}
+            showDeleteLeadModal={showDeleteLeadModal}
           />
         )}
       </DragPreviewWrapper>

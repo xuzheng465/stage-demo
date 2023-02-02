@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Column from "./Column";
 import { useAppState } from "./state/AppStateContext";
@@ -7,12 +7,14 @@ import { AppContainer } from "./styles";
 import { CustomDragLayer } from "./CustomDragLayer";
 import AddLeadModal from "./components/Modal/AddLeadModal";
 import EditLeadModal from "./components/Modal/EditLeadModal";
-import { ConfigContext } from "antd/es/config-provider";
+
+import DeleteLeadModal from "./components/Modal/DeleteLeadModal";
 
 function App() {
-  const { stages, curLeadId } = useAppState();
+  const { stages } = useAppState();
   const [isAddLeadModalOpen, setIsAddLeadModalOpen] = useState(false);
   const [isEditLeadModalOpen, setIsEditLeadModalOpen] = useState(false);
+  const [isDeleteLeadModalOpen, setIsDeleteLeadModalOpen] = useState(false);
 
   const showAddLeadModal = () => {
     setIsAddLeadModalOpen(true);
@@ -30,12 +32,21 @@ function App() {
     setIsEditLeadModalOpen(false);
   };
 
+  const showDeleteLeadModal = () => {
+    setIsDeleteLeadModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteLeadModalOpen(false);
+  };
+
   return (
     <>
       <AppContainer>
         <CustomDragLayer
           showAddLeadModal={showAddLeadModal}
           showEditLeadModal={showEditLeadModal}
+          showDeleteLeadModal={showDeleteLeadModal}
         />
         {stages.map((stage) => (
           <Column
@@ -44,6 +55,7 @@ function App() {
             id={stage.id}
             showAddLeadModal={showAddLeadModal}
             showEditLeadModal={showEditLeadModal}
+            showDeleteLeadModal={showDeleteLeadModal}
           />
         ))}
         {/* <AddNewItem
@@ -59,6 +71,10 @@ function App() {
       <EditLeadModal
         isModalOpen={isEditLeadModalOpen}
         onClose={handleCloseEditModal}
+      />
+      <DeleteLeadModal
+        isModalOpen={isDeleteLeadModalOpen}
+        onClose={handleCloseDeleteModal}
       />
     </>
   );

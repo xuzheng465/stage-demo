@@ -1,7 +1,7 @@
 import { AppState } from "./state/appStateReducer";
 
 export const save = (payload: AppState) => {
-  console.log(process.env.REACT_APP_BACKEND_ENDPOINT);
+
   return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/data.json`, {
     method: "PUT",
     headers: {

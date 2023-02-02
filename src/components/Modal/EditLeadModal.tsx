@@ -1,7 +1,7 @@
 import { Modal } from "antd";
-import React, { useEffect, useState } from "react";
+
 import { useAppState } from "../../state/AppStateContext";
-import { Lead, LeadContent } from "../../state/appStateReducer";
+
 import LeadForm from "../LeadForm";
 
 type EditLeadModalProps = {
@@ -10,9 +10,9 @@ type EditLeadModalProps = {
 };
 
 function EditLeadModal({ isModalOpen, onClose }: EditLeadModalProps) {
-  const { curColId, getLeadsByListId, curLeadId, curLead } = useAppState();
+  const { curLead } = useAppState();
   // const [lead, setLead] = useState<Lead>();
-  console.log("edit - ", curLead);
+
   return (
     <>
       <Modal
@@ -28,7 +28,6 @@ function EditLeadModal({ isModalOpen, onClose }: EditLeadModalProps) {
           intend={curLead?.content.intend}
           price={curLead?.content.price}
           onClose={onClose}
-          currentColumnId={curColId}
           isEdit={true}
         />
       </Modal>

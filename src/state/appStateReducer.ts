@@ -87,7 +87,17 @@ export const appStateReducer = (
       draft.stages[colIndex].leads[leadIndex] = newItem;
       break;
     }
-    
+
+    case "DELETE_LEAD": {
+      const { leadId, stageId } = action.payload;
+      const stageIndex = findItemIndexById(draft.stages, stageId);
+      const leads = draft.stages[stageIndex].leads.filter(
+        (l) => l.id !== leadId
+      );
+      draft.stages[stageIndex].leads = leads;
+      break;
+    }
+
     case "MOVE_LEAD": {
       const { draggedItemId, hoveredItemId, sourceColumnId, targetColumnId } =
         action.payload;
